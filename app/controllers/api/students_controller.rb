@@ -35,6 +35,6 @@ class Api::StudentsController < ApplicationController
   private
 
   def student_params
-    params.permit(:first_name, :last_name, :email, :address, :phone_number, :password, :password_confirmation, :student)
+    params.permit(:first_name, :last_name, :email, :address, :phone_number, :password, :password_confirmation, :student, :profile_pic)
   end 
 end

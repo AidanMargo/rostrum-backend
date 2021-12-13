@@ -1,4 +1,7 @@
 class Api::TeachersController < ApplicationController
+  before_action :authenticate_user
+  skip_before_action :authenticate_user, only:[:create, :show]
+
 
   def index
     teachers = Teacher.all 
@@ -16,10 +19,8 @@ class Api::TeachersController < ApplicationController
 
   def create
     teacher = Teacher.create(teacher_params)
-    byebug
     if teacher.valid?
       session[:user_id] = teacher.id
-      byebugteach
       render json: teacher, status: :created
     else
       render json: {errors: teacher.errors.full_messages}, status: :unprocessable_entity
@@ -36,6 +37,11 @@ class Api::TeachersController < ApplicationController
   private
 
   def teacher_params
-    params.permit(:first_name, :last_name, :email, :address, :phone_number, :password, :password_confirmation)
+    params.permit(:first_name, :last_name, :email, :address, :phone_number, :password, :password_confirmation, :profile_pic)
   end 
+
+  def authenticate_user
+    return render json: { error: "Not authorized" }, status: :unauthorized unless session[:user_id] == params[:id]
+  end
+
 end
