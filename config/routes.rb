@@ -6,5 +6,8 @@ namespace :api do
   resources :students
 
   get '/me', to: 'sessions#show'
+  post '/studentlogin', to: 'sessions#create'
+  post '/teacherlogin', to: 'sessions#teacher_create'
+
 end
 end

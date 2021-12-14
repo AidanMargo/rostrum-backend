@@ -5,7 +5,5 @@ class Student < ApplicationRecord
   has_many :teachers, through: :teacher_student
 
 
-  def set_default_avatar
-    user = User.
-  end
 end
+
