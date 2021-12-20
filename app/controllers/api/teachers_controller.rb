@@ -1,6 +1,6 @@
 class Api::TeachersController < ApplicationController
   before_action :authenticate_user
-  skip_before_action :authenticate_user, only:[:create, :show]
+  skip_before_action :authenticate_user, only:[:create, :show, :update]
 
 
   def index
@@ -9,16 +9,18 @@ class Api::TeachersController < ApplicationController
   end
 
   def show
-    teacher = Teacher.find(params[:id])
+    teacher = Teacher.find(id: params[:id])
     if teacher
-      render json: teacher
+      render json: {teacher: teacher}, include: :students
     else
       render json: {errors: teacher.errors.full_messages}, status: :not_found
     end
   end
 
   def create
+    # user = User.create()
     teacher = Teacher.create(teacher_params)
+    # teacher.user_id = user.id
     if teacher.valid?
       session[:user_id] = teacher.id
       render json: teacher, status: :created
@@ -26,6 +28,17 @@ class Api::TeachersController < ApplicationController
       render json: {errors: teacher.errors.full_messages}, status: :unprocessable_entity
     end
   end
+
+  def update
+    teacher = Teacher.find(session[:user_id])
+    if teacher
+      teacher.update(teacher_params)
+      render json: teacher
+    else
+      render json: {errors: teacher.errors.full_messages}, status: :unprocessable_entity
+    end
+  end
+
 
   def destroy
     teacher = Teacher.find(session[:user_id])
@@ -37,7 +50,7 @@ class Api::TeachersController < ApplicationController
   private
 
   def teacher_params
-    params.permit(:first_name, :last_name, :email, :address, :phone_number, :password, :password_confirmation, :profile_pic)
+    params.permit(:first_name, :last_name, :email, :address, :phone_number, :password, :password_confirmation, :id)
   end 
 
   def authenticate_user

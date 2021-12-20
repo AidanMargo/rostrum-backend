@@ -6,8 +6,11 @@ namespace :api do
   resources :students
 
   get '/me', to: 'sessions#show'
+  delete '/logout', to:'sessions#destroy'
   post '/studentlogin', to: 'sessions#create'
   post '/teacherlogin', to: 'sessions#teacher_create'
-
 end
+
+  # post '/rails/active_storage/direct_uploads', to: 'direct_uploads#create'
+
 end

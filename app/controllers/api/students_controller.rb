@@ -16,18 +16,27 @@ class Api::StudentsController < ApplicationController
 
   def create
     student = Student.create(student_params)
+    teacher = Teacher.find(session[:user_id])
     if student.valid?
-      session[:user_id] = student.id
-      byebug
+      TeacherStudent.create(teacher_id: teacher.id, student_id: student.id)
       render json: student, status: :created
     else
       render json: {errors: student.errors.full_messages}, status: :unprocessable_entity
     end
   end
 
+  def update
+    student = Student.find(params[:id])
+    if student
+      student.update(student_params)
+      render json: student
+    else
+      render json: {errors: student.errors.full_messages}, status: :unprocessable_entity
+    end
+  end
+
   def destroy
-    student = Student.find(session[:user_id])
-    session.destroy :user_id
+    student = Student.find(params[:id])
     student.destroy
   end
 
@@ -35,6 +44,6 @@ class Api::StudentsController < ApplicationController
   private
 
   def student_params
-    params.permit(:first_name, :last_name, :email, :address, :phone_number, :password, :password_confirmation, :student, :profile_pic)
+    params.permit(:first_name, :last_name, :email, :address, :phone_number, :age, :notes, :student, :id)
   end 
 end

@@ -47,11 +47,14 @@ ActiveRecord::Schema.define(version: 2021_12_13_201947) do
     t.string "first_name"
     t.string "last_name"
     t.string "email"
+    t.integer "age"
     t.string "password_digest"
     t.string "password_confirmation"
     t.string "profile_pic"
     t.string "address"
     t.string "phone_number"
+    t.text "notes"
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -72,7 +75,7 @@ ActiveRecord::Schema.define(version: 2021_12_13_201947) do
     t.string "profile_pic"
     t.string "address"
     t.string "phone_number"
-    t.string "type"
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

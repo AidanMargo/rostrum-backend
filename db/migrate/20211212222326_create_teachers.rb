@@ -9,7 +9,7 @@ class CreateTeachers < ActiveRecord::Migration[6.1]
       t.string :profile_pic
       t.string :address
       t.string :phone_number
-      t.string :type
+      t.integer :user_id
 
       t.timestamps
     end

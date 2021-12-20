@@ -12,7 +12,6 @@ class Api::SessionsController < ApplicationController
 
   def teacher_create
     teacher = Teacher.find_by(email: params[:email])
-    byebug
     if teacher&.authenticate(params[:password])  
       session[:user_id] = teacher.id
       render json: teacher, status: :created
@@ -23,19 +22,21 @@ class Api::SessionsController < ApplicationController
 
   def destroy
     session.delete :user_id
-    header :no_content
+    head :no_content
   end
 
   def show
     # Need to find way to check teachers and students tables to find the current user. maybe an if statement?
-    user = Teacher.find_by(id: session[:user_id])
-    if user
-      render json: user
+    teacher = Teacher.find_by(id: session[:user_id])
+    # avatar = rails_blob_path(teacher.avatar)
+
+    if teacher
+      render json: {user: teacher}, include: :students
     else 
       render json: {errors: "User not found"}, status: :not_found
     end
   end
 
-
+private
 
 end
