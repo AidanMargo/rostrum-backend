@@ -31,7 +31,7 @@ class Api::SessionsController < ApplicationController
     # avatar = rails_blob_path(teacher.avatar)
 
     if teacher
-      render json: {user: teacher}, include: :students
+      render json: {user: teacher, total_students: teacher.total_students}, include: [:students, :todos]
     else 
       render json: {errors: "User not found"}, status: :not_found
     end
@@ -39,4 +39,5 @@ class Api::SessionsController < ApplicationController
 
 private
 
+  
 end

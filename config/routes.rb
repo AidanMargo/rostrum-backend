@@ -4,6 +4,7 @@ namespace :api do
   
   resources :teachers
   resources :students
+  resources :todos
 
   get '/me', to: 'sessions#show'
   delete '/logout', to:'sessions#destroy'
