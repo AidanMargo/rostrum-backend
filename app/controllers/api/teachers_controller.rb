@@ -11,7 +11,7 @@ class Api::TeachersController < ApplicationController
   def show
     teacher = Teacher.find(session[:user_id])
     if teacher
-      render json: {teacher: teacher}, include: [:students, :todos]
+      render json: {teacher: teacher}, include: [:students, :todos, :appointments]
     else
       render json: {errors: teacher.errors.full_messages}, status: :not_found
     end

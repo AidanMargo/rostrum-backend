@@ -3,4 +3,5 @@ class TeacherSerializer < ActiveModel::Serializer
 
   has_many :todos
   has_many :students
+  has_many :appointments
 end
