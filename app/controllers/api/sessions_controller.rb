@@ -39,5 +39,16 @@ class Api::SessionsController < ApplicationController
 
 private
 
-  
+  def cart_items
+    user = User.find(session[:id])
+    
+    if user
+      all_items = user.order.find_by(paid: false).items
+      render json: all_items
+    else 
+      render json: {errors: all_items.errors.full_messages}
+    end
+  end
+
+
 end

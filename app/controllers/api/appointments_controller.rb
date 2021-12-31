@@ -8,7 +8,6 @@ class Api::AppointmentsController < ApplicationController
 
   def create
     appointment = Appointment.create(appointment_params)
-    byebug
     if appointment.valid?
       render json: appointment, status: :created
     else
