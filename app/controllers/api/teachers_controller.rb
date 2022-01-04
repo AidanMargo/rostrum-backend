@@ -18,9 +18,7 @@ class Api::TeachersController < ApplicationController
   end
 
   def create
-    # user = User.create()
     teacher = Teacher.create(teacher_params)
-    # teacher.user_id = user.id
     if teacher.valid?
       session[:user_id] = teacher.id
       render json: teacher, status: :created

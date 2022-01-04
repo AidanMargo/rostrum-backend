@@ -7,8 +7,10 @@ class Teacher < ApplicationRecord
   has_many :teacher_students
   has_many :students, through: :teacher_students
 
-  validates :email, presence: true, uniqueness: true
-  # validates :first_name, :last_name, presence: true
+  validates :email, presence: true, uniqueness: true, email: true
+  validates :first_name, :last_name, :password, :address, :phone_number, presence: true
+  validates :password, length: {minimum: 6}
+
   
 
   def total_students
@@ -16,7 +18,7 @@ class Teacher < ApplicationRecord
   end
 
   def total_appointments
-    total = self.appointments.last.id
+    total = self.appointments.count
   end
   
 end
