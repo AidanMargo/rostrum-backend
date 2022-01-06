@@ -34,7 +34,7 @@ class Api::AppointmentsController < ApplicationController
   private
 
   def appointment_params
-    params.permit(:id, :startDate, :endDate, :notes, :title, :allDay, :teacher_id)
+    params.permit(:id, :startDate, :endDate, :notes, :title, :allDay, :teacher_id, :rRule)
   end
 
 

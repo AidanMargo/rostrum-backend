@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 2021_12_22_161224) do
     t.text "notes"
     t.integer "teacher_id"
     t.boolean "allDay"
+    t.string "rRule"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
